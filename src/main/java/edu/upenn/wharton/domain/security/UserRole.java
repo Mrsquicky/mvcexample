@@ -1,5 +1,5 @@
 package edu.upenn.wharton.domain.security;
 
-public class Authority{
+public class UserRole {
 
 }

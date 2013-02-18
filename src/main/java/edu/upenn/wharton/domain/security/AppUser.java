@@ -1,7 +1,6 @@
 package edu.upenn.wharton.domain.security;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,8 +28,15 @@ public class AppUser{
 	private boolean enabled;
 
 	@OneToMany
-	private Set<Authority> authorities;
-
+	private List<UserRole> userRoles;
+	
+	@OneToMany
+	private List<SecurityRole> securityRoles;
+	
+	public Long getId(){
+		return id;
+	}
+	
 	public String getUsername(){
 		return username;
 	}
@@ -55,15 +61,44 @@ public class AppUser{
 		this.enabled = enabled;
 	}
 
-	public Set<Authority> getAuthorities(){
-		return authorities;
+	public List<UserRole> getUserRoles(){
+		return userRoles;
 	}
-
-	public void setAuthorities(Set<Authority> authorities){
-		this.authorities = authorities;
+	
+	public void setUserRoles(List<UserRole> userRoles){
+		this.userRoles = userRoles;
 	}
-
-	public AppUser(){
-		setAuthorities(new HashSet<Authority>());
+	
+	public void addUserRole(UserRole toAdd){
+		getUserRoles().add(toAdd);
 	}
+	
+	public void removeUserRole(UserRole toRemove){
+		getUserRoles().remove(toRemove);
+	}
+	
+	public int getUserRoleCount(){
+		return getUserRoles().size();
+	}
+	
+	public List<SecurityRole> getSecurityRoles(){
+		return securityRoles;
+	}
+	
+	public void setSecurityRoles(List<SecurityRole> SecurityRoles){
+		this.securityRoles = SecurityRoles;
+	}
+	
+	public void addSecurityRole(SecurityRole toAdd){
+		getSecurityRoles().add(toAdd);
+	}
+	
+	public void removeSecurityRole(SecurityRole toRemove){
+		getSecurityRoles().remove(toRemove);
+	}
+	
+	public int getSecurityRoleCount(){
+		return getSecurityRoles().size();
+	}
+	
 }

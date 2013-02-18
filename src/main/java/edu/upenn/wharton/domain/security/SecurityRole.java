@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 
-public class Role{
+public class SecurityRole{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -94,7 +94,7 @@ public class Role{
 		return id;
 	}
 
-	public Role(){
+	public SecurityRole(){
 		permissions = new ArrayList<Permission>();
 		users = new ArrayList<AppUser>();
 	}
