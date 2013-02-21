@@ -3,19 +3,14 @@ package edu.upenn.wharton.domain.security;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@Entity
-public class AppUser{
+import edu.upenn.wharton.domain.person.Person;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+@Entity
+public class AppUser extends Person{
 
 	@NotNull
 	@Size(min = 3)
@@ -27,16 +22,9 @@ public class AppUser{
 	@NotNull
 	private boolean enabled;
 
-	@OneToMany
-	private List<UserRole> userRoles;
-	
-	@OneToMany
+	@ManyToMany
 	private List<SecurityRole> securityRoles;
-	
-	public Long getId(){
-		return id;
-	}
-	
+
 	public String getUsername(){
 		return username;
 	}
@@ -61,44 +49,28 @@ public class AppUser{
 		this.enabled = enabled;
 	}
 
-	public List<UserRole> getUserRoles(){
-		return userRoles;
-	}
-	
-	public void setUserRoles(List<UserRole> userRoles){
-		this.userRoles = userRoles;
-	}
-	
-	public void addUserRole(UserRole toAdd){
-		getUserRoles().add(toAdd);
-	}
-	
-	public void removeUserRole(UserRole toRemove){
-		getUserRoles().remove(toRemove);
-	}
-	
-	public int getUserRoleCount(){
-		return getUserRoles().size();
-	}
-	
 	public List<SecurityRole> getSecurityRoles(){
 		return securityRoles;
 	}
-	
+
 	public void setSecurityRoles(List<SecurityRole> SecurityRoles){
 		this.securityRoles = SecurityRoles;
 	}
-	
+
 	public void addSecurityRole(SecurityRole toAdd){
 		getSecurityRoles().add(toAdd);
 	}
-	
+
 	public void removeSecurityRole(SecurityRole toRemove){
 		getSecurityRoles().remove(toRemove);
 	}
-	
+
 	public int getSecurityRoleCount(){
 		return getSecurityRoles().size();
 	}
-	
+
+	public boolean containsSecurityRole(SecurityRole toFind){
+		return getSecurityRoles().contains(toFind);
+	}
+
 }

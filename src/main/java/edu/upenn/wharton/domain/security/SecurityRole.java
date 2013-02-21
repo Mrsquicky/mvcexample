@@ -3,6 +3,7 @@ package edu.upenn.wharton.domain.security;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,7 +21,7 @@ public class SecurityRole{
 
 	private String value;
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	private List<Permission> permissions;
 
 	@ManyToMany
